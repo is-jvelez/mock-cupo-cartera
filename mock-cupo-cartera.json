@@ -1,0 +1,198 @@
+{
+  "uuid": "9504687b-6603-4c55-aa5b-88d86d60378c",
+  "lastMigration": 33,
+  "name": "Mock cupo cartera",
+  "endpointPrefix": "api/v1",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "4080c038-b170-4c3c-8bc9-e6fa4ca0719f",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "",
+      "responses": [
+        {
+          "uuid": "e03d3048-cf5b-4ab2-84ae-f204e6b5de9b",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "6b6c6022-f87a-45b2-8645-2e269f2098e8",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "cupocartera/consultar",
+      "responses": [
+        {
+          "uuid": "08703110-7de3-4b25-8906-80679015374f",
+          "body": "{\r\n  \"identificacion\": \"{{body 'identificacion'}}\",\r\n  \"calificacionTorres\": \"{{body 'calificacionTorres'}}\",\r\n  \"estadoCartera\": \"{{body 'estadoCartera'}}\",\r\n  \"cupoAsignado\": 0,\r\n  \"porcentajeCupo\": 20,\r\n  \"cupoPermitido\": 0,\r\n  \"saldoVencido\": 20000.00,\r\n  \"saldoPorVencer\": 44000.00,\r\n  \"montoPorFacturar\": 1000,\r\n  \"saldoUtilizado\": 65000.00,\r\n  \"cupoDisponible\": -65000.00,\r\n  \"fechaVencimientoMasAntiguaConSaldo\": \"2026-09-09T00:00:00\",\r\n  \"diasVencimiento\": 16,\r\n  \"umbralDiasVencimiento\": 15,\r\n  \"cupoExcedido\": true,\r\n  \"carteraVencida\": true,\r\n  \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n  \"motivoBloqueo\": \"Ambos\",\r\n \"fechaCalculo\": \"{{now 'yyyy-MM-dd'}}T{{now 'HH:mm:ss'}}\",\r\n  \"origen\": \"CacheVigente\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "value": "^[Bb]earer\\s+token_api_cupo_cartera\\s*$",
+              "invert": false,
+              "operator": "regex"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "c9ca90ae-4e90-40f4-9c3e-104b6d091b8c",
+          "body": "{ \"status\": 403, \"error\": \"Forbidden\", \"mensaje\": \"Token inválido para este recurso.\" }",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "value": "^[Bb]earer\\s+.+",
+              "invert": false,
+              "operator": "regex"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "4764ebcc-0e41-42c8-b841-413752ad9171",
+          "body": "{ \"status\": 401, \"error\": \"Unauthorized\", \"mensaje\": \"Se requiere token de autorización.\" }",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "4080c038-b170-4c3c-8bc9-e6fa4ca0719f"
+    },
+    {
+      "type": "route",
+      "uuid": "6b6c6022-f87a-45b2-8645-2e269f2098e8"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [],
+  "callbacks": []
+}
