@@ -1,5 +1,5 @@
 {
-  "uuid": "9504687b-6603-4c55-aa5b-88d86d60378c",
+  "uuid": "b3a34836-57db-4d21-8c8e-7c64945a9cfa",
   "lastMigration": 33,
   "name": "Mock cupo cartera",
   "endpointPrefix": "api/v1",
@@ -9,19 +9,265 @@
   "folders": [],
   "routes": [
     {
-      "uuid": "4080c038-b170-4c3c-8bc9-e6fa4ca0719f",
+      "uuid": "aead6065-02f0-4a69-8f28-cec2dcf794d8",
       "type": "http",
-      "documentation": "",
-      "method": "get",
-      "endpoint": "",
+      "documentation": "E1 (Zoho). Authorization: Bearer token_api_cupo_cartera. identificacion 1002 = bloqueado, 1003 = caché vigente con Manual, 9999 = 404; cualquier otra = habilitado.",
+      "method": "post",
+      "endpoint": "cupocartera/consultar",
       "responses": [
         {
-          "uuid": "e03d3048-cf5b-4ab2-84ae-f204e6b5de9b",
-          "body": "{}",
+          "uuid": "18295e70-7cfe-4411-b121-8963322ee8fe",
+          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"NO_AUTENTICADO\",\r\n  \"mensaje\": \"Se requiere token de autorización.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "401 NO_AUTENTICADO - sin token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            },
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "value": "^[Bb]earer\\s+\\S+",
+              "invert": true,
+              "operator": "regex"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "f8d67913-4e40-4732-bb19-02bba38e78b8",
+          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"ACCESO_DENEGADO\",\r\n  \"mensaje\": \"Token inválido para este recurso.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "403 ACCESO_DENEGADO - token distinto al esperado",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "value": "^[Bb]earer\\s+token_api_cupo_cartera\\s*$",
+              "invert": true,
+              "operator": "regex"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "10271fdc-c42e-4e3e-ac8d-584999dfcfb7",
+          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"SOLICITUD_INVALIDA\",\r\n  \"mensaje\": \"La solicitud tiene datos inválidos o incompletos.\",\r\n  \"data\": null,\r\n  \"errores\": [{{#unless (bodyRaw 'identificacion')}}\"Identificacion: The Identificacion field is required.\"{{#unless (bodyRaw 'calificacionTorres')}},{{else}}{{#unless (bodyRaw 'estadoCartera')}},{{else}}{{#unless (bodyRaw 'configuracion')}},{{else}}{{/unless}}{{/unless}}{{/unless}}{{/unless}}{{#unless (bodyRaw 'calificacionTorres')}}\"CalificacionTorres: The CalificacionTorres field is required.\"{{#unless (bodyRaw 'estadoCartera')}},{{else}}{{#unless (bodyRaw 'configuracion')}},{{else}}{{/unless}}{{/unless}}{{/unless}}{{#unless (bodyRaw 'estadoCartera')}}\"EstadoCartera: The EstadoCartera field is required.\"{{#unless (bodyRaw 'configuracion')}},{{else}}{{/unless}}{{/unless}}{{#unless (bodyRaw 'configuracion')}}\"Configuracion: The Configuracion field is required.\"{{/unless}}],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "400 SOLICITUD_INVALIDA - falta un campo obligatorio",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "identificacion",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            },
+            {
+              "target": "body",
+              "modifier": "identificacion",
+              "value": "^$",
+              "invert": false,
+              "operator": "regex"
+            },
+            {
+              "target": "body",
+              "modifier": "calificacionTorres",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            },
+            {
+              "target": "body",
+              "modifier": "calificacionTorres",
+              "value": "^$",
+              "invert": false,
+              "operator": "regex"
+            },
+            {
+              "target": "body",
+              "modifier": "estadoCartera",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            },
+            {
+              "target": "body",
+              "modifier": "estadoCartera",
+              "value": "^$",
+              "invert": false,
+              "operator": "regex"
+            },
+            {
+              "target": "body",
+              "modifier": "configuracion",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "c366feef-5280-410b-8f1a-8892de2371bf",
+          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"NO_ENCONTRADO\",\r\n  \"mensaje\": \"El cliente '{{body 'identificacion'}}' no existe en SAP.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "404 NO_ENCONTRADO - identificacion 9999",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "identificacion",
+              "value": "9999",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "a51e68b1-e402-4b85-a59a-708579267490",
+          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"CALCULADO\",\r\n  \"mensaje\": \"Cupo calculado correctamente.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"calificacionTorres\": \"{{body 'calificacionTorres'}}\",\r\n    \"estadoCartera\": \"{{body 'estadoCartera'}}\",\r\n    \"cupoAsignado\": 50000,\r\n    \"porcentajeCupo\": 20,\r\n    \"cupoPermitido\": 60000,\r\n    \"saldoVencido\": 20000,\r\n    \"saldoPorVencer\": 44000,\r\n    \"montoPorFacturar\": 1000,\r\n    \"saldoUtilizado\": 65000,\r\n    \"cupoDisponible\": -5000,\r\n    \"fechaVencimientoMasAntiguaConSaldo\": \"{{dateTimeShift days=-16 format='yyyy-MM-dd'}}T00:00:00\",\r\n    \"diasVencimiento\": 16,\r\n    \"umbralDiasVencimiento\": 15,\r\n    \"cupoExcedido\": true,\r\n    \"carteraVencida\": true,\r\n    \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"fechaCalculo\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\",\r\n    \"origen\": \"Calculado\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
           "latency": 0,
           "statusCode": 200,
-          "label": "",
-          "headers": [],
+          "label": "200 CALCULADO bloqueado - identificacion 1002",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "identificacion",
+              "value": "1002",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "f92ddabc-a2a0-4585-b50e-6ae7a477411f",
+          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"CACHE_VIGENTE\",\r\n  \"mensaje\": \"Cupo calculado recientemente (menos de 5 minutos).\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"calificacionTorres\": \"{{body 'calificacionTorres'}}\",\r\n    \"estadoCartera\": \"{{body 'estadoCartera'}}\",\r\n    \"cupoAsignado\": 50000,\r\n    \"porcentajeCupo\": 20,\r\n    \"cupoPermitido\": 60000,\r\n    \"saldoVencido\": 20000,\r\n    \"saldoPorVencer\": 44000,\r\n    \"montoPorFacturar\": 1000,\r\n    \"saldoUtilizado\": 65000,\r\n    \"cupoDisponible\": -5000,\r\n    \"fechaVencimientoMasAntiguaConSaldo\": \"{{dateTimeShift days=-16 format='yyyy-MM-dd'}}T00:00:00\",\r\n    \"diasVencimiento\": 16,\r\n    \"umbralDiasVencimiento\": 15,\r\n    \"cupoExcedido\": true,\r\n    \"carteraVencida\": true,\r\n    \"estadoCarteraTorres\": \"0-Habilitado\",\r\n    \"motivoBloqueo\": \"Manual\",\r\n    \"fechaBloqueo\": \"{{dateTimeShift days=2 format='yyyy-MM-dd'}}\",\r\n    \"fechaCalculo\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\",\r\n    \"origen\": \"CacheVigente\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "200 CACHE_VIGENTE con Manual - identificacion 1003",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "identificacion",
+              "value": "1003",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "f5809fcf-6beb-402a-91a2-cea3dfee8703",
+          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"CALCULADO\",\r\n  \"mensaje\": \"Cupo calculado correctamente.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"calificacionTorres\": \"{{body 'calificacionTorres'}}\",\r\n    \"estadoCartera\": \"{{body 'estadoCartera'}}\",\r\n    \"cupoAsignado\": 50000,\r\n    \"porcentajeCupo\": 20,\r\n    \"cupoPermitido\": 60000,\r\n    \"saldoVencido\": 5000,\r\n    \"saldoPorVencer\": 20000,\r\n    \"montoPorFacturar\": 1000,\r\n    \"saldoUtilizado\": 26000,\r\n    \"cupoDisponible\": 34000,\r\n    \"fechaVencimientoMasAntiguaConSaldo\": \"{{dateTimeShift days=-6 format='yyyy-MM-dd'}}T00:00:00\",\r\n    \"diasVencimiento\": 6,\r\n    \"umbralDiasVencimiento\": 15,\r\n    \"cupoExcedido\": false,\r\n    \"carteraVencida\": false,\r\n    \"estadoCarteraTorres\": \"0-Habilitado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"fechaCalculo\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\",\r\n    \"origen\": \"Calculado\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "200 CALCULADO habilitado - cualquier otra identificacion",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -40,18 +286,359 @@
       "streamingInterval": 0
     },
     {
-      "uuid": "6b6c6022-f87a-45b2-8645-2e269f2098e8",
+      "uuid": "98d1b9db-3252-4d12-89e2-1e5165555003",
       "type": "http",
-      "documentation": "",
+      "documentation": "E2 (Zoho, \"Habilitar manualmente\"). identificacion 9999 = 404 sin cálculo, 1003 = 409 manual vigente, 1004 = 409 estado ya aplicado, 5030 = 503; cualquier otra = 200.",
       "method": "post",
-      "endpoint": "cupocartera/consultar",
+      "endpoint": "cupocartera/gestion-cobranza",
       "responses": [
         {
-          "uuid": "08703110-7de3-4b25-8906-80679015374f",
-          "body": "{\r\n  \"identificacion\": \"{{body 'identificacion'}}\",\r\n  \"calificacionTorres\": \"{{body 'calificacionTorres'}}\",\r\n  \"estadoCartera\": \"{{body 'estadoCartera'}}\",\r\n  \"cupoAsignado\": 0,\r\n  \"porcentajeCupo\": 20,\r\n  \"cupoPermitido\": 0,\r\n  \"saldoVencido\": 20000.00,\r\n  \"saldoPorVencer\": 44000.00,\r\n  \"montoPorFacturar\": 1000,\r\n  \"saldoUtilizado\": 65000.00,\r\n  \"cupoDisponible\": -65000.00,\r\n  \"fechaVencimientoMasAntiguaConSaldo\": \"2026-09-09T00:00:00\",\r\n  \"diasVencimiento\": 16,\r\n  \"umbralDiasVencimiento\": 15,\r\n  \"cupoExcedido\": true,\r\n  \"carteraVencida\": true,\r\n  \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n  \"motivoBloqueo\": \"Ambos\",\r\n \"fechaCalculo\": \"{{now 'yyyy-MM-dd'}}T{{now 'HH:mm:ss'}}\",\r\n  \"origen\": \"CacheVigente\"\r\n}",
+          "uuid": "6dd70c51-14f0-491f-8767-35535a2b8f29",
+          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"SOLICITUD_INVALIDA\",\r\n  \"mensaje\": \"La solicitud tiene datos inválidos o incompletos.\",\r\n  \"data\": null,\r\n  \"errores\": [{{#unless (bodyRaw 'identificacion')}}\"Identificacion: The Identificacion field is required.\"{{#unless (bodyRaw 'motivo')}},{{else}}{{#unless (bodyRaw 'estado')}},{{else}}{{#unless (bodyRaw 'fechaBloqueo')}},{{else}}{{/unless}}{{/unless}}{{/unless}}{{/unless}}{{#unless (bodyRaw 'motivo')}}\"Motivo: The Motivo field is required.\"{{#unless (bodyRaw 'estado')}},{{else}}{{#unless (bodyRaw 'fechaBloqueo')}},{{else}}{{/unless}}{{/unless}}{{/unless}}{{#unless (bodyRaw 'estado')}}\"Estado: The Estado field is required.\"{{#unless (bodyRaw 'fechaBloqueo')}},{{else}}{{/unless}}{{/unless}}{{#unless (bodyRaw 'fechaBloqueo')}}\"FechaBloqueo: The FechaBloqueo field is required.\"{{/unless}}],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "400 SOLICITUD_INVALIDA - falta un campo obligatorio",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "identificacion",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            },
+            {
+              "target": "body",
+              "modifier": "identificacion",
+              "value": "^$",
+              "invert": false,
+              "operator": "regex"
+            },
+            {
+              "target": "body",
+              "modifier": "motivo",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            },
+            {
+              "target": "body",
+              "modifier": "motivo",
+              "value": "^$",
+              "invert": false,
+              "operator": "regex"
+            },
+            {
+              "target": "body",
+              "modifier": "estado",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            },
+            {
+              "target": "body",
+              "modifier": "estado",
+              "value": "^$",
+              "invert": false,
+              "operator": "regex"
+            },
+            {
+              "target": "body",
+              "modifier": "fechaBloqueo",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            },
+            {
+              "target": "body",
+              "modifier": "fechaBloqueo",
+              "value": "^$",
+              "invert": false,
+              "operator": "regex"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "a3d40955-cbce-4d34-9164-e213da3f86ed",
+          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"SOLICITUD_INVALIDA\",\r\n  \"mensaje\": \"El motivo debe ser 'Manual'.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "400 SOLICITUD_INVALIDA - motivo distinto de Manual",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "motivo",
+              "value": "^manual$",
+              "invert": true,
+              "operator": "regex_i"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "c303d2f1-e378-4a0e-8f54-c2a77a3a2fec",
+          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"SOLICITUD_INVALIDA\",\r\n  \"mensaje\": \"El estado debe ser '0-Habilitado' o '1-Bloqueado'.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "400 SOLICITUD_INVALIDA - estado no permitido",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "estado",
+              "value": "^(0-habilitado|1-bloqueado)$",
+              "invert": true,
+              "operator": "regex_i"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "487c5bec-5a2a-43f8-adb3-4c08180aff1e",
+          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"SOLICITUD_INVALIDA\",\r\n  \"mensaje\": \"La solicitud tiene datos inválidos o incompletos.\",\r\n  \"data\": null,\r\n  \"errores\": [\"fechaBloqueo: The JSON value could not be converted to System.Nullable`1[System.DateOnly].\"],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "400 SOLICITUD_INVALIDA - fechaBloqueo no es yyyy-MM-dd",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "fechaBloqueo",
+              "value": "^\\d{4}-\\d{2}-\\d{2}$",
+              "invert": true,
+              "operator": "regex"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "c165a009-9c0d-4edd-8ad2-354fc1fc06f2",
+          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"SIN_CALCULO_VIGENTE\",\r\n  \"mensaje\": \"No hay un cálculo vigente para el cliente. Consulte nuevamente el cupo y cartera.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "404 SIN_CALCULO_VIGENTE - identificacion 9999",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "identificacion",
+              "value": "9999",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "6a5920d7-72b3-4c38-917c-823b063da73d",
+          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"MANUAL_VIGENTE\",\r\n  \"mensaje\": \"El cliente ya tiene un bloqueo manual vigente hasta el {{dateTimeShift days=2 format='dd/MM/yyyy'}}.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "409 MANUAL_VIGENTE - identificacion 1003",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "identificacion",
+              "value": "1003",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "b69a167b-6326-4fe8-9fb7-1affde6e9aa3",
+          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"ESTADO_YA_APLICADO\",\r\n  \"mensaje\": \"El cliente ya está habilitado.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "409 ESTADO_YA_APLICADO - identificacion 1004",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "identificacion",
+              "value": "1004",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "efb9f696-918e-4b19-a17e-e7d520202b0a",
+          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"CACHE_NO_DISPONIBLE\",\r\n  \"mensaje\": \"La caché de cupo de cartera (Redis) no está disponible.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 503,
+          "label": "503 CACHE_NO_DISPONIBLE - identificacion 5030",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "identificacion",
+              "value": "5030",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "f545104b-bfdf-4394-838f-a3f4ed0bc773",
+          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"GESTION_GUARDADA\",\r\n  \"mensaje\": \"Gestión manual registrada hasta el {{substr (body 'fechaBloqueo') 8 2}}/{{substr (body 'fechaBloqueo') 5 2}}/{{substr (body 'fechaBloqueo') 0 4}}.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"estadoCarteraTorres\": \"{{body 'estado'}}\",\r\n    \"motivoBloqueo\": \"Manual\",\r\n    \"fechaBloqueo\": \"{{body 'fechaBloqueo'}}\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
           "latency": 0,
           "statusCode": 200,
-          "label": "",
+          "label": "200 GESTION_GUARDADA - cualquier otra identificacion",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "5390e598-a5b6-4790-8445-78f58fd44d4b",
+      "type": "http",
+      "documentation": "E5 (ECHO). identificacion 1002 = bloqueado, 1003 = manual vigente en CRM, 1005 = contingencia, 9999 = 404, 8888 = 422 no es TORRES, 5020 = 502 SAP caído; cualquier otra = habilitado.",
+      "method": "post",
+      "endpoint": "cupocartera/obtener",
+      "responses": [
+        {
+          "uuid": "0951c324-ef9c-4d2e-ba96-02a0f3640dec",
+          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"SOLICITUD_INVALIDA\",\r\n  \"mensaje\": \"La solicitud tiene datos inválidos o incompletos.\",\r\n  \"data\": null,\r\n  \"errores\": [{{#unless (bodyRaw 'identificacion')}}\"Identificacion: The Identificacion field is required.\"{{#unless (bodyRaw 'montoPorFacturar') includeZero=true}},{{else}}{{/unless}}{{/unless}}{{#unless (bodyRaw 'montoPorFacturar') includeZero=true}}\"MontoPorFacturar: The MontoPorFacturar field is required.\"{{/unless}}],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "400 SOLICITUD_INVALIDA - falta un campo obligatorio",
           "headers": [
             {
               "key": "Content-Type",
@@ -64,11 +651,25 @@
           "sendFileAsBody": false,
           "rules": [
             {
-              "target": "header",
-              "modifier": "Authorization",
-              "value": "^[Bb]earer\\s+token_api_cupo_cartera\\s*$",
+              "target": "body",
+              "modifier": "identificacion",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            },
+            {
+              "target": "body",
+              "modifier": "identificacion",
+              "value": "^$",
               "invert": false,
               "operator": "regex"
+            },
+            {
+              "target": "body",
+              "modifier": "montoPorFacturar",
+              "value": "",
+              "invert": false,
+              "operator": "null"
             }
           ],
           "rulesOperator": "OR",
@@ -79,11 +680,11 @@
           "callbacks": []
         },
         {
-          "uuid": "c9ca90ae-4e90-40f4-9c3e-104b6d091b8c",
-          "body": "{ \"status\": 403, \"error\": \"Forbidden\", \"mensaje\": \"Token inválido para este recurso.\" }",
+          "uuid": "68bca427-6484-4ada-a29b-24d359aa2e90",
+          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"SOLICITUD_INVALIDA\",\r\n  \"mensaje\": \"La solicitud tiene datos inválidos o incompletos.\",\r\n  \"data\": null,\r\n  \"errores\": [\"MontoPorFacturar: The field MontoPorFacturar must be between 0 and 1.7976931348623157E+308.\"],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
           "latency": 0,
-          "statusCode": 403,
-          "label": "",
+          "statusCode": 400,
+          "label": "400 SOLICITUD_INVALIDA - montoPorFacturar negativo",
           "headers": [
             {
               "key": "Content-Type",
@@ -96,9 +697,9 @@
           "sendFileAsBody": false,
           "rules": [
             {
-              "target": "header",
-              "modifier": "Authorization",
-              "value": "^[Bb]earer\\s+.+",
+              "target": "body",
+              "modifier": "montoPorFacturar",
+              "value": "^-",
               "invert": false,
               "operator": "regex"
             }
@@ -111,11 +712,203 @@
           "callbacks": []
         },
         {
-          "uuid": "4764ebcc-0e41-42c8-b841-413752ad9171",
-          "body": "{ \"status\": 401, \"error\": \"Unauthorized\", \"mensaje\": \"Se requiere token de autorización.\" }",
+          "uuid": "70b6aa94-8352-45da-9425-97684f6aa819",
+          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"CLIENTE_NO_ENCONTRADO_ZOHO\",\r\n  \"mensaje\": \"El cliente '{{body 'identificacion'}}' no existe en Zoho CRM.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
           "latency": 0,
-          "statusCode": 401,
-          "label": "",
+          "statusCode": 404,
+          "label": "404 CLIENTE_NO_ENCONTRADO_ZOHO - identificacion 9999",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "identificacion",
+              "value": "9999",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "2535f090-b158-4f9a-9e6f-6e973ac992e6",
+          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"NO_ES_CLIENTE_TORRES\",\r\n  \"mensaje\": \"El cliente '{{body 'identificacion'}}' no es cliente TORRES.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "422 NO_ES_CLIENTE_TORRES - identificacion 8888",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "identificacion",
+              "value": "8888",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "a1ad66c7-2bd0-438f-9172-746852edd896",
+          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"DEPENDENCIA_NO_DISPONIBLE\",\r\n  \"mensaje\": \"SAP no disponible: No fue posible consultar la cartera en SAP.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 502,
+          "label": "502 DEPENDENCIA_NO_DISPONIBLE - identificacion 5020",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "identificacion",
+              "value": "5020",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "64535de9-0a13-4d77-bbe0-3471bf24386a",
+          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"CALCULADO\",\r\n  \"mensaje\": \"Cupo calculado correctamente.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"origen\": \"Calculado\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "200 CALCULADO bloqueado - identificacion 1002",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "identificacion",
+              "value": "1002",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "73098b51-7bdf-4e4f-abb9-d785a8d142a5",
+          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"MANUAL_CRM\",\r\n  \"mensaje\": \"Gestión manual vigente registrada en CRM.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"estadoCarteraTorres\": \"0-Habilitado\",\r\n    \"motivoBloqueo\": \"Manual\",\r\n    \"fechaBloqueo\": \"{{dateTimeShift days=2 format='yyyy-MM-dd'}}\",\r\n    \"origen\": \"ManualCrm\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "200 MANUAL_CRM - identificacion 1003",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "identificacion",
+              "value": "1003",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "f1949a35-4ce4-450a-a611-be129fb4361e",
+          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"CONTINGENCIA\",\r\n  \"mensaje\": \"Datos de respaldo: un servicio externo no está disponible y se devuelve el último cálculo guardado.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"estadoCarteraTorres\": \"0-Habilitado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"origen\": \"Contingencia\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "200 CONTINGENCIA - identificacion 1005",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "identificacion",
+              "value": "1005",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "c0d317af-7252-4498-8d52-e2826176e3f5",
+          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"CALCULADO\",\r\n  \"mensaje\": \"Cupo calculado correctamente.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"estadoCarteraTorres\": \"0-Habilitado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"origen\": \"Calculado\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "200 CALCULADO habilitado - cualquier otra identificacion",
           "headers": [
             {
               "key": "Content-Type",
@@ -143,11 +936,15 @@
   "rootChildren": [
     {
       "type": "route",
-      "uuid": "4080c038-b170-4c3c-8bc9-e6fa4ca0719f"
+      "uuid": "aead6065-02f0-4a69-8f28-cec2dcf794d8"
     },
     {
       "type": "route",
-      "uuid": "6b6c6022-f87a-45b2-8645-2e269f2098e8"
+      "uuid": "98d1b9db-3252-4d12-89e2-1e5165555003"
+    },
+    {
+      "type": "route",
+      "uuid": "5390e598-a5b6-4790-8445-78f58fd44d4b"
     }
   ],
   "proxyMode": false,
