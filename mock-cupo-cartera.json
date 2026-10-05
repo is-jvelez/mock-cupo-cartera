@@ -226,7 +226,7 @@
         },
         {
           "uuid": "f92ddabc-a2a0-4585-b50e-6ae7a477411f",
-          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"CACHE_VIGENTE\",\r\n  \"mensaje\": \"Cupo calculado recientemente (menos de 5 minutos).\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"calificacionTorres\": \"{{body 'calificacionTorres'}}\",\r\n    \"estadoCartera\": \"{{body 'estadoCartera'}}\",\r\n    \"cupoAsignado\": 50000,\r\n    \"porcentajeCupo\": 20,\r\n    \"cupoPermitido\": 60000,\r\n    \"saldoVencido\": 20000,\r\n    \"saldoPorVencer\": 44000,\r\n    \"montoPorFacturar\": 1000,\r\n    \"saldoUtilizado\": 65000,\r\n    \"cupoDisponible\": -5000,\r\n    \"fechaVencimientoMasAntiguaConSaldo\": \"{{dateTimeShift days=-16 format='yyyy-MM-dd'}}T00:00:00\",\r\n    \"diasVencimiento\": 16,\r\n    \"umbralDiasVencimiento\": 15,\r\n    \"cupoExcedido\": true,\r\n    \"carteraVencida\": true,\r\n    \"estadoCarteraTorres\": \"0-Habilitado\",\r\n    \"motivoBloqueo\": \"Manual\",\r\n    \"fechaBloqueo\": \"{{dateTimeShift days=2 format='yyyy-MM-dd'}}\",\r\n    \"fechaCalculo\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\",\r\n    \"origen\": \"CacheVigente\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"CACHE_VIGENTE\",\r\n  \"mensaje\": \"Cupo calculado recientemente (menos de 5 minutos).\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"calificacionTorres\": \"{{body 'calificacionTorres'}}\",\r\n    \"estadoCartera\": \"{{body 'estadoCartera'}}\",\r\n    \"cupoAsignado\": 50000,\r\n    \"porcentajeCupo\": 20,\r\n    \"cupoPermitido\": 60000,\r\n    \"saldoVencido\": 20000,\r\n    \"saldoPorVencer\": 44000,\r\n    \"montoPorFacturar\": 1000,\r\n    \"saldoUtilizado\": 65000,\r\n    \"cupoDisponible\": -5000,\r\n    \"fechaVencimientoMasAntiguaConSaldo\": \"{{dateTimeShift days=-16 format='yyyy-MM-dd'}}T00:00:00\",\r\n    \"diasVencimiento\": 16,\r\n    \"umbralDiasVencimiento\": 15,\r\n    \"cupoExcedido\": true,\r\n    \"carteraVencida\": true,\r\n    \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n    \"motivoBloqueo\": \"Manual\",\r\n    \"fechaBloqueo\": \"{{dateTimeShift days=2 format='yyyy-MM-dd'}}\",\r\n    \"fechaCalculo\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\",\r\n    \"origen\": \"CacheVigente\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "200 CACHE_VIGENTE con Manual - identificacion 1003",
@@ -258,7 +258,7 @@
         },
         {
           "uuid": "f5809fcf-6beb-402a-91a2-cea3dfee8703",
-          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"CALCULADO\",\r\n  \"mensaje\": \"Cupo calculado correctamente.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"calificacionTorres\": \"{{body 'calificacionTorres'}}\",\r\n    \"estadoCartera\": \"{{body 'estadoCartera'}}\",\r\n    \"cupoAsignado\": 50000,\r\n    \"porcentajeCupo\": 20,\r\n    \"cupoPermitido\": 60000,\r\n    \"saldoVencido\": 5000,\r\n    \"saldoPorVencer\": 20000,\r\n    \"montoPorFacturar\": 1000,\r\n    \"saldoUtilizado\": 26000,\r\n    \"cupoDisponible\": 34000,\r\n    \"fechaVencimientoMasAntiguaConSaldo\": \"{{dateTimeShift days=-6 format='yyyy-MM-dd'}}T00:00:00\",\r\n    \"diasVencimiento\": 6,\r\n    \"umbralDiasVencimiento\": 15,\r\n    \"cupoExcedido\": false,\r\n    \"carteraVencida\": false,\r\n    \"estadoCarteraTorres\": \"0-Habilitado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"fechaCalculo\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\",\r\n    \"origen\": \"Calculado\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"CALCULADO\",\r\n  \"mensaje\": \"Cupo calculado correctamente.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"calificacionTorres\": \"{{body 'calificacionTorres'}}\",\r\n    \"estadoCartera\": \"{{body 'estadoCartera'}}\",\r\n    \"cupoAsignado\": 50000,\r\n    \"porcentajeCupo\": 20,\r\n    \"cupoPermitido\": 60000,\r\n    \"saldoVencido\": 5000,\r\n    \"saldoPorVencer\": 20000,\r\n    \"montoPorFacturar\": 1000,\r\n    \"saldoUtilizado\": 26000,\r\n    \"cupoDisponible\": 34000,\r\n    \"fechaVencimientoMasAntiguaConSaldo\": \"{{dateTimeShift days=-6 format='yyyy-MM-dd'}}T00:00:00\",\r\n    \"diasVencimiento\": 6,\r\n    \"umbralDiasVencimiento\": 15,\r\n    \"cupoExcedido\": false,\r\n    \"carteraVencida\": false,\r\n    \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"fechaCalculo\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\",\r\n    \"origen\": \"Calculado\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "200 CALCULADO habilitado - cualquier otra identificacion",
@@ -425,7 +425,7 @@
             {
               "target": "body",
               "modifier": "estado",
-              "value": "^(0-habilitado|1-bloqueado)$",
+              "value": "^(0-Habilitado|1-Bloqueado)$",
               "invert": true,
               "operator": "regex_i"
             }
@@ -841,7 +841,7 @@
         },
         {
           "uuid": "73098b51-7bdf-4e4f-abb9-d785a8d142a5",
-          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"MANUAL_CRM\",\r\n  \"mensaje\": \"Gestión manual vigente registrada en CRM.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"estadoCarteraTorres\": \"0-Habilitado\",\r\n    \"motivoBloqueo\": \"Manual\",\r\n    \"fechaBloqueo\": \"{{dateTimeShift days=2 format='yyyy-MM-dd'}}\",\r\n    \"origen\": \"ManualCrm\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"MANUAL_CRM\",\r\n  \"mensaje\": \"Gestión manual vigente registrada en CRM.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n    \"motivoBloqueo\": \"Manual\",\r\n    \"fechaBloqueo\": \"{{dateTimeShift days=2 format='yyyy-MM-dd'}}\",\r\n    \"origen\": \"ManualCrm\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "200 MANUAL_CRM - identificacion 1003",
@@ -873,7 +873,7 @@
         },
         {
           "uuid": "f1949a35-4ce4-450a-a611-be129fb4361e",
-          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"CONTINGENCIA\",\r\n  \"mensaje\": \"Datos de respaldo: un servicio externo no está disponible y se devuelve el último cálculo guardado.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"estadoCarteraTorres\": \"0-Habilitado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"origen\": \"Contingencia\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"CONTINGENCIA\",\r\n  \"mensaje\": \"Datos de respaldo: un servicio externo no está disponible y se devuelve el último cálculo guardado.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"origen\": \"Contingencia\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "200 CONTINGENCIA - identificacion 1005",
@@ -905,7 +905,7 @@
         },
         {
           "uuid": "c0d317af-7252-4498-8d52-e2826176e3f5",
-          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"CALCULADO\",\r\n  \"mensaje\": \"Cupo calculado correctamente.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"estadoCarteraTorres\": \"0-Habilitado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"origen\": \"Calculado\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"CALCULADO\",\r\n  \"mensaje\": \"Cupo calculado correctamente.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"origen\": \"Calculado\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "200 CALCULADO habilitado - cualquier otra identificacion",
