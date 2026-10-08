@@ -11,13 +11,13 @@
     {
       "uuid": "aead6065-02f0-4a69-8f28-cec2dcf794d8",
       "type": "http",
-      "documentation": "E1 (Zoho). Authorization: Bearer token_api_cupo_cartera. identificacion 1002 = bloqueado, 1003 = caché vigente con Manual, 9999 = 404; cualquier otra = habilitado.",
+      "documentation": "E1 (Zoho). Authorization: Bearer token_api_cupo_cartera. identificacion 1001 = habilitado, 1002 = bloqueado, 1003 = caché vigente con Manual, 9999 = 404; cualquier otra = habilitado.",
       "method": "post",
       "endpoint": "cupocartera/consultar",
       "responses": [
         {
           "uuid": "18295e70-7cfe-4411-b121-8963322ee8fe",
-          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"NO_AUTENTICADO\",\r\n  \"mensaje\": \"Se requiere token de autorización.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": false,\r\n  \"code\": \"NO_AUTENTICADO\",\r\n  \"message\": \"Se requiere token de autorización.\",\r\n  \"data\": null,\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 401,
           "label": "401 NO_AUTENTICADO - sin token",
@@ -56,7 +56,7 @@
         },
         {
           "uuid": "f8d67913-4e40-4732-bb19-02bba38e78b8",
-          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"ACCESO_DENEGADO\",\r\n  \"mensaje\": \"Token inválido para este recurso.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": false,\r\n  \"code\": \"ACCESO_DENEGADO\",\r\n  \"message\": \"Token inválido para este recurso.\",\r\n  \"data\": null,\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 403,
           "label": "403 ACCESO_DENEGADO - token distinto al esperado",
@@ -88,7 +88,7 @@
         },
         {
           "uuid": "10271fdc-c42e-4e3e-ac8d-584999dfcfb7",
-          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"SOLICITUD_INVALIDA\",\r\n  \"mensaje\": \"La solicitud tiene datos inválidos o incompletos.\",\r\n  \"data\": null,\r\n  \"errores\": [{{#unless (bodyRaw 'identificacion')}}\"Identificacion: The Identificacion field is required.\"{{#unless (bodyRaw 'calificacionTorres')}},{{else}}{{#unless (bodyRaw 'estadoCartera')}},{{else}}{{#unless (bodyRaw 'configuracion')}},{{else}}{{/unless}}{{/unless}}{{/unless}}{{/unless}}{{#unless (bodyRaw 'calificacionTorres')}}\"CalificacionTorres: The CalificacionTorres field is required.\"{{#unless (bodyRaw 'estadoCartera')}},{{else}}{{#unless (bodyRaw 'configuracion')}},{{else}}{{/unless}}{{/unless}}{{/unless}}{{#unless (bodyRaw 'estadoCartera')}}\"EstadoCartera: The EstadoCartera field is required.\"{{#unless (bodyRaw 'configuracion')}},{{else}}{{/unless}}{{/unless}}{{#unless (bodyRaw 'configuracion')}}\"Configuracion: The Configuracion field is required.\"{{/unless}}],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": false,\r\n  \"code\": \"SOLICITUD_INVALIDA\",\r\n  \"message\": \"La solicitud tiene datos inválidos o incompletos.\",\r\n  \"data\": null,\r\n  \"errors\": [{{#unless (bodyRaw 'identificacion')}}\"Identificacion: The Identificacion field is required.\"{{#unless (bodyRaw 'calificacionTorres')}},{{else}}{{#unless (bodyRaw 'configuracion')}},{{/unless}}{{/unless}}{{/unless}}{{#unless (bodyRaw 'calificacionTorres')}}\"CalificacionTorres: The CalificacionTorres field is required.\"{{#unless (bodyRaw 'configuracion')}},{{/unless}}{{/unless}}{{#unless (bodyRaw 'configuracion')}}\"Configuracion: The Configuracion field is required.\"{{/unless}}],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 400,
           "label": "400 SOLICITUD_INVALIDA - falta un campo obligatorio",
@@ -133,20 +133,6 @@
             },
             {
               "target": "body",
-              "modifier": "estadoCartera",
-              "value": "",
-              "invert": false,
-              "operator": "null"
-            },
-            {
-              "target": "body",
-              "modifier": "estadoCartera",
-              "value": "^$",
-              "invert": false,
-              "operator": "regex"
-            },
-            {
-              "target": "body",
               "modifier": "configuracion",
               "value": "",
               "invert": false,
@@ -162,7 +148,7 @@
         },
         {
           "uuid": "c366feef-5280-410b-8f1a-8892de2371bf",
-          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"NO_ENCONTRADO\",\r\n  \"mensaje\": \"El cliente '{{body 'identificacion'}}' no existe en SAP.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": false,\r\n  \"code\": \"NO_ENCONTRADO\",\r\n  \"message\": \"El cliente '{{body 'identificacion'}}' no existe en SAP.\",\r\n  \"data\": null,\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 404,
           "label": "404 NO_ENCONTRADO - identificacion 9999",
@@ -194,7 +180,7 @@
         },
         {
           "uuid": "a51e68b1-e402-4b85-a59a-708579267490",
-          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"CALCULADO\",\r\n  \"mensaje\": \"Cupo calculado correctamente.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"calificacionTorres\": \"{{body 'calificacionTorres'}}\",\r\n    \"estadoCartera\": \"{{body 'estadoCartera'}}\",\r\n    \"cupoAsignado\": 50000,\r\n    \"porcentajeCupo\": 20,\r\n    \"cupoPermitido\": 60000,\r\n    \"saldoVencido\": 20000,\r\n    \"saldoPorVencer\": 44000,\r\n    \"montoPorFacturar\": 1000,\r\n    \"saldoUtilizado\": 65000,\r\n    \"cupoDisponible\": -5000,\r\n    \"fechaVencimientoMasAntiguaConSaldo\": \"{{dateTimeShift days=-16 format='yyyy-MM-dd'}}T00:00:00\",\r\n    \"diasVencimiento\": 16,\r\n    \"umbralDiasVencimiento\": 15,\r\n    \"cupoExcedido\": true,\r\n    \"carteraVencida\": true,\r\n    \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"fechaCalculo\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\",\r\n    \"origen\": \"Calculado\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": true,\r\n  \"code\": \"CALCULADO\",\r\n  \"message\": \"Cupo calculado correctamente.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"calificacionTorres\": \"{{body 'calificacionTorres'}}\",\r\n    \"estadoCartera\": \"Cartera vencida\",\r\n    \"cupoAsignado\": 50000,\r\n    \"porcentajeCupo\": 20,\r\n    \"cupoPermitido\": 60000,\r\n    \"saldoFacturasAbiertas\": 64000,\r\n    \"saldoVencido\": 20000,\r\n    \"saldoPorVencer\": 44000,\r\n    \"numeroFacturasVencidas\": 88,\r\n    \"montoPorFacturar\": 1000,\r\n    \"saldoUtilizado\": 65000,\r\n    \"cupoDisponible\": -5000,\r\n    \"fechaVencimientoMasAntiguaConSaldo\": \"{{dateTimeShift days=-16 format='yyyy-MM-dd'}}T00:00:00\",\r\n    \"diasVencimiento\": 16,\r\n    \"umbralDiasVencimiento\": 15,\r\n    \"cupoExcedido\": true,\r\n    \"carteraVencida\": true,\r\n    \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"fechaCalculo\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\",\r\n    \"origen\": \"Calculado\"\r\n  },\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "200 CALCULADO bloqueado - identificacion 1002",
@@ -226,7 +212,7 @@
         },
         {
           "uuid": "f92ddabc-a2a0-4585-b50e-6ae7a477411f",
-          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"CACHE_VIGENTE\",\r\n  \"mensaje\": \"Cupo calculado recientemente (menos de 5 minutos).\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"calificacionTorres\": \"{{body 'calificacionTorres'}}\",\r\n    \"estadoCartera\": \"{{body 'estadoCartera'}}\",\r\n    \"cupoAsignado\": 50000,\r\n    \"porcentajeCupo\": 20,\r\n    \"cupoPermitido\": 60000,\r\n    \"saldoVencido\": 20000,\r\n    \"saldoPorVencer\": 44000,\r\n    \"montoPorFacturar\": 1000,\r\n    \"saldoUtilizado\": 65000,\r\n    \"cupoDisponible\": -5000,\r\n    \"fechaVencimientoMasAntiguaConSaldo\": \"{{dateTimeShift days=-16 format='yyyy-MM-dd'}}T00:00:00\",\r\n    \"diasVencimiento\": 16,\r\n    \"umbralDiasVencimiento\": 15,\r\n    \"cupoExcedido\": true,\r\n    \"carteraVencida\": true,\r\n    \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n    \"motivoBloqueo\": \"Manual\",\r\n    \"fechaBloqueo\": \"{{dateTimeShift days=2 format='yyyy-MM-dd'}}\",\r\n    \"fechaCalculo\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\",\r\n    \"origen\": \"CacheVigente\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": true,\r\n  \"code\": \"CACHE_VIGENTE\",\r\n  \"message\": \"Cupo calculado recientemente (menos de 5 minutos).\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"calificacionTorres\": \"{{body 'calificacionTorres'}}\",\r\n    \"estadoCartera\": \"Cartera vencida\",\r\n    \"cupoAsignado\": 50000,\r\n    \"porcentajeCupo\": 20,\r\n    \"cupoPermitido\": 60000,\r\n    \"saldoFacturasAbiertas\": 64000,\r\n    \"saldoVencido\": 20000,\r\n    \"saldoPorVencer\": 44000,\r\n    \"numeroFacturasVencidas\": 88,\r\n    \"montoPorFacturar\": 1000,\r\n    \"saldoUtilizado\": 65000,\r\n    \"cupoDisponible\": -5000,\r\n    \"fechaVencimientoMasAntiguaConSaldo\": \"{{dateTimeShift days=-16 format='yyyy-MM-dd'}}T00:00:00\",\r\n    \"diasVencimiento\": 16,\r\n    \"umbralDiasVencimiento\": 15,\r\n    \"cupoExcedido\": true,\r\n    \"carteraVencida\": true,\r\n    \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n    \"motivoBloqueo\": \"Manual\",\r\n    \"fechaBloqueo\": \"{{dateTimeShift days=2 format='yyyy-MM-dd'}}\",\r\n    \"fechaCalculo\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\",\r\n    \"origen\": \"CacheVigente\"\r\n  },\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "200 CACHE_VIGENTE con Manual - identificacion 1003",
@@ -257,8 +243,40 @@
           "callbacks": []
         },
         {
+          "uuid": "ec5dd16b-e7bd-4815-b35b-fb516ff3ad3c",
+          "body": "{\r\n  \"success\": true,\r\n  \"code\": \"CALCULADO\",\r\n  \"message\": \"Cupo calculado correctamente.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"calificacionTorres\": \"{{body 'calificacionTorres'}}\",\r\n    \"estadoCartera\": \"Cartera al día\",\r\n    \"cupoAsignado\": 50000,\r\n    \"porcentajeCupo\": 20,\r\n    \"cupoPermitido\": 60000,\r\n    \"saldoFacturasAbiertas\": 25000,\r\n    \"saldoVencido\": 5000,\r\n    \"saldoPorVencer\": 20000,\r\n    \"numeroFacturasVencidas\": 3,\r\n    \"montoPorFacturar\": 1000,\r\n    \"saldoUtilizado\": 26000,\r\n    \"cupoDisponible\": 34000,\r\n    \"fechaVencimientoMasAntiguaConSaldo\": \"{{dateTimeShift days=-6 format='yyyy-MM-dd'}}T00:00:00\",\r\n    \"diasVencimiento\": 6,\r\n    \"umbralDiasVencimiento\": 15,\r\n    \"cupoExcedido\": false,\r\n    \"carteraVencida\": false,\r\n    \"estadoCarteraTorres\": \"0-Habilitado\",\r\n    \"motivoBloqueo\": null,\r\n    \"fechaBloqueo\": null,\r\n    \"fechaCalculo\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\",\r\n    \"origen\": \"Calculado\"\r\n  },\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "200 CALCULADO habilitado - identificacion 1001",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "identificacion",
+              "value": "1001",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
           "uuid": "f5809fcf-6beb-402a-91a2-cea3dfee8703",
-          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"CALCULADO\",\r\n  \"mensaje\": \"Cupo calculado correctamente.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"calificacionTorres\": \"{{body 'calificacionTorres'}}\",\r\n    \"estadoCartera\": \"{{body 'estadoCartera'}}\",\r\n    \"cupoAsignado\": 50000,\r\n    \"porcentajeCupo\": 20,\r\n    \"cupoPermitido\": 60000,\r\n    \"saldoVencido\": 5000,\r\n    \"saldoPorVencer\": 20000,\r\n    \"montoPorFacturar\": 1000,\r\n    \"saldoUtilizado\": 26000,\r\n    \"cupoDisponible\": 34000,\r\n    \"fechaVencimientoMasAntiguaConSaldo\": \"{{dateTimeShift days=-6 format='yyyy-MM-dd'}}T00:00:00\",\r\n    \"diasVencimiento\": 6,\r\n    \"umbralDiasVencimiento\": 15,\r\n    \"cupoExcedido\": false,\r\n    \"carteraVencida\": false,\r\n    \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"fechaCalculo\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\",\r\n    \"origen\": \"Calculado\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": true,\r\n  \"code\": \"CALCULADO\",\r\n  \"message\": \"Cupo calculado correctamente.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"calificacionTorres\": \"{{body 'calificacionTorres'}}\",\r\n    \"estadoCartera\": \"Cartera al día\",\r\n    \"cupoAsignado\": 50000,\r\n    \"porcentajeCupo\": 20,\r\n    \"cupoPermitido\": 60000,\r\n    \"saldoFacturasAbiertas\": 25000,\r\n    \"saldoVencido\": 5000,\r\n    \"saldoPorVencer\": 20000,\r\n    \"numeroFacturasVencidas\": 3,\r\n    \"montoPorFacturar\": 1000,\r\n    \"saldoUtilizado\": 26000,\r\n    \"cupoDisponible\": 34000,\r\n    \"fechaVencimientoMasAntiguaConSaldo\": \"{{dateTimeShift days=-6 format='yyyy-MM-dd'}}T00:00:00\",\r\n    \"diasVencimiento\": 6,\r\n    \"umbralDiasVencimiento\": 15,\r\n    \"cupoExcedido\": false,\r\n    \"carteraVencida\": false,\r\n    \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"fechaCalculo\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\",\r\n    \"origen\": \"Calculado\"\r\n  },\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "200 CALCULADO habilitado - cualquier otra identificacion",
@@ -294,7 +312,7 @@
       "responses": [
         {
           "uuid": "6dd70c51-14f0-491f-8767-35535a2b8f29",
-          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"SOLICITUD_INVALIDA\",\r\n  \"mensaje\": \"La solicitud tiene datos inválidos o incompletos.\",\r\n  \"data\": null,\r\n  \"errores\": [{{#unless (bodyRaw 'identificacion')}}\"Identificacion: The Identificacion field is required.\"{{#unless (bodyRaw 'motivo')}},{{else}}{{#unless (bodyRaw 'estado')}},{{else}}{{#unless (bodyRaw 'fechaBloqueo')}},{{else}}{{/unless}}{{/unless}}{{/unless}}{{/unless}}{{#unless (bodyRaw 'motivo')}}\"Motivo: The Motivo field is required.\"{{#unless (bodyRaw 'estado')}},{{else}}{{#unless (bodyRaw 'fechaBloqueo')}},{{else}}{{/unless}}{{/unless}}{{/unless}}{{#unless (bodyRaw 'estado')}}\"Estado: The Estado field is required.\"{{#unless (bodyRaw 'fechaBloqueo')}},{{else}}{{/unless}}{{/unless}}{{#unless (bodyRaw 'fechaBloqueo')}}\"FechaBloqueo: The FechaBloqueo field is required.\"{{/unless}}],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": false,\r\n  \"code\": \"SOLICITUD_INVALIDA\",\r\n  \"message\": \"La solicitud tiene datos inválidos o incompletos.\",\r\n  \"data\": null,\r\n  \"errors\": [{{#unless (bodyRaw 'identificacion')}}\"Identificacion: The Identificacion field is required.\"{{#unless (bodyRaw 'motivo')}},{{else}}{{#unless (bodyRaw 'estado')}},{{else}}{{#unless (bodyRaw 'fechaBloqueo')}},{{else}}{{/unless}}{{/unless}}{{/unless}}{{/unless}}{{#unless (bodyRaw 'motivo')}}\"Motivo: The Motivo field is required.\"{{#unless (bodyRaw 'estado')}},{{else}}{{#unless (bodyRaw 'fechaBloqueo')}},{{else}}{{/unless}}{{/unless}}{{/unless}}{{#unless (bodyRaw 'estado')}}\"Estado: The Estado field is required.\"{{#unless (bodyRaw 'fechaBloqueo')}},{{else}}{{/unless}}{{/unless}}{{#unless (bodyRaw 'fechaBloqueo')}}\"FechaBloqueo: The FechaBloqueo field is required.\"{{/unless}}],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 400,
           "label": "400 SOLICITUD_INVALIDA - falta un campo obligatorio",
@@ -375,7 +393,7 @@
         },
         {
           "uuid": "a3d40955-cbce-4d34-9164-e213da3f86ed",
-          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"SOLICITUD_INVALIDA\",\r\n  \"mensaje\": \"El motivo debe ser 'Manual'.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": false,\r\n  \"code\": \"SOLICITUD_INVALIDA\",\r\n  \"message\": \"El motivo debe ser 'Manual'.\",\r\n  \"data\": null,\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 400,
           "label": "400 SOLICITUD_INVALIDA - motivo distinto de Manual",
@@ -407,7 +425,7 @@
         },
         {
           "uuid": "c303d2f1-e378-4a0e-8f54-c2a77a3a2fec",
-          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"SOLICITUD_INVALIDA\",\r\n  \"mensaje\": \"El estado debe ser '0-Habilitado' o '1-Bloqueado'.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": false,\r\n  \"code\": \"SOLICITUD_INVALIDA\",\r\n  \"message\": \"El estado debe ser '0-Habilitado' o '1-Bloqueado'.\",\r\n  \"data\": null,\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 400,
           "label": "400 SOLICITUD_INVALIDA - estado no permitido",
@@ -439,7 +457,7 @@
         },
         {
           "uuid": "487c5bec-5a2a-43f8-adb3-4c08180aff1e",
-          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"SOLICITUD_INVALIDA\",\r\n  \"mensaje\": \"La solicitud tiene datos inválidos o incompletos.\",\r\n  \"data\": null,\r\n  \"errores\": [\"fechaBloqueo: The JSON value could not be converted to System.Nullable`1[System.DateOnly].\"],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": false,\r\n  \"code\": \"SOLICITUD_INVALIDA\",\r\n  \"message\": \"La solicitud tiene datos inválidos o incompletos.\",\r\n  \"data\": null,\r\n  \"errors\": [\"fechaBloqueo: The JSON value could not be converted to System.Nullable`1[System.DateOnly].\"],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 400,
           "label": "400 SOLICITUD_INVALIDA - fechaBloqueo no es yyyy-MM-dd",
@@ -471,7 +489,7 @@
         },
         {
           "uuid": "c165a009-9c0d-4edd-8ad2-354fc1fc06f2",
-          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"SIN_CALCULO_VIGENTE\",\r\n  \"mensaje\": \"No hay un cálculo vigente para el cliente. Consulte nuevamente el cupo y cartera.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": false,\r\n  \"code\": \"SIN_CALCULO_VIGENTE\",\r\n  \"message\": \"No hay un cálculo vigente para el cliente. Consulte nuevamente el cupo y cartera.\",\r\n  \"data\": null,\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 404,
           "label": "404 SIN_CALCULO_VIGENTE - identificacion 9999",
@@ -503,7 +521,7 @@
         },
         {
           "uuid": "6a5920d7-72b3-4c38-917c-823b063da73d",
-          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"MANUAL_VIGENTE\",\r\n  \"mensaje\": \"El cliente ya tiene un bloqueo manual vigente hasta el {{dateTimeShift days=2 format='dd/MM/yyyy'}}.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": false,\r\n  \"code\": \"MANUAL_VIGENTE\",\r\n  \"message\": \"El cliente ya tiene un bloqueo manual vigente hasta el {{dateTimeShift days=2 format='dd/MM/yyyy'}}.\",\r\n  \"data\": null,\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 409,
           "label": "409 MANUAL_VIGENTE - identificacion 1003",
@@ -535,7 +553,7 @@
         },
         {
           "uuid": "b69a167b-6326-4fe8-9fb7-1affde6e9aa3",
-          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"ESTADO_YA_APLICADO\",\r\n  \"mensaje\": \"El cliente ya está habilitado.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": false,\r\n  \"code\": \"ESTADO_YA_APLICADO\",\r\n  \"message\": \"El cliente ya está habilitado.\",\r\n  \"data\": null,\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 409,
           "label": "409 ESTADO_YA_APLICADO - identificacion 1004",
@@ -567,7 +585,7 @@
         },
         {
           "uuid": "efb9f696-918e-4b19-a17e-e7d520202b0a",
-          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"CACHE_NO_DISPONIBLE\",\r\n  \"mensaje\": \"La caché de cupo de cartera (Redis) no está disponible.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": false,\r\n  \"code\": \"CACHE_NO_DISPONIBLE\",\r\n  \"message\": \"La caché de cupo de cartera (Redis) no está disponible.\",\r\n  \"data\": null,\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 503,
           "label": "503 CACHE_NO_DISPONIBLE - identificacion 5030",
@@ -599,7 +617,7 @@
         },
         {
           "uuid": "f545104b-bfdf-4394-838f-a3f4ed0bc773",
-          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"GESTION_GUARDADA\",\r\n  \"mensaje\": \"Gestión manual registrada hasta el {{substr (body 'fechaBloqueo') 8 2}}/{{substr (body 'fechaBloqueo') 5 2}}/{{substr (body 'fechaBloqueo') 0 4}}.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"estadoCarteraTorres\": \"{{body 'estado'}}\",\r\n    \"motivoBloqueo\": \"Manual\",\r\n    \"fechaBloqueo\": \"{{body 'fechaBloqueo'}}\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": true,\r\n  \"code\": \"GESTION_GUARDADA\",\r\n  \"message\": \"Gestión manual registrada hasta el {{substr (body 'fechaBloqueo') 8 2}}/{{substr (body 'fechaBloqueo') 5 2}}/{{substr (body 'fechaBloqueo') 0 4}}.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"estadoCarteraTorres\": \"{{body 'estado'}}\",\r\n    \"motivoBloqueo\": \"Manual\",\r\n    \"fechaBloqueo\": \"{{body 'fechaBloqueo'}}\"\r\n  },\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "200 GESTION_GUARDADA - cualquier otra identificacion",
@@ -635,7 +653,7 @@
       "responses": [
         {
           "uuid": "0951c324-ef9c-4d2e-ba96-02a0f3640dec",
-          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"SOLICITUD_INVALIDA\",\r\n  \"mensaje\": \"La solicitud tiene datos inválidos o incompletos.\",\r\n  \"data\": null,\r\n  \"errores\": [{{#unless (bodyRaw 'identificacion')}}\"Identificacion: The Identificacion field is required.\"{{#unless (bodyRaw 'montoPorFacturar') includeZero=true}},{{else}}{{/unless}}{{/unless}}{{#unless (bodyRaw 'montoPorFacturar') includeZero=true}}\"MontoPorFacturar: The MontoPorFacturar field is required.\"{{/unless}}],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": false,\r\n  \"code\": \"SOLICITUD_INVALIDA\",\r\n  \"message\": \"La solicitud tiene datos inválidos o incompletos.\",\r\n  \"data\": null,\r\n  \"errors\": [{{#unless (bodyRaw 'identificacion')}}\"Identificacion: The Identificacion field is required.\"{{#unless (bodyRaw 'montoPorFacturar') includeZero=true}},{{else}}{{/unless}}{{/unless}}{{#unless (bodyRaw 'montoPorFacturar') includeZero=true}}\"MontoPorFacturar: The MontoPorFacturar field is required.\"{{/unless}}],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 400,
           "label": "400 SOLICITUD_INVALIDA - falta un campo obligatorio",
@@ -681,7 +699,7 @@
         },
         {
           "uuid": "68bca427-6484-4ada-a29b-24d359aa2e90",
-          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"SOLICITUD_INVALIDA\",\r\n  \"mensaje\": \"La solicitud tiene datos inválidos o incompletos.\",\r\n  \"data\": null,\r\n  \"errores\": [\"MontoPorFacturar: The field MontoPorFacturar must be between 0 and 1.7976931348623157E+308.\"],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": false,\r\n  \"code\": \"SOLICITUD_INVALIDA\",\r\n  \"message\": \"La solicitud tiene datos inválidos o incompletos.\",\r\n  \"data\": null,\r\n  \"errors\": [\"MontoPorFacturar: The field MontoPorFacturar must be between 0 and 1.7976931348623157E+308.\"],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 400,
           "label": "400 SOLICITUD_INVALIDA - montoPorFacturar negativo",
@@ -713,7 +731,7 @@
         },
         {
           "uuid": "70b6aa94-8352-45da-9425-97684f6aa819",
-          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"CLIENTE_NO_ENCONTRADO_ZOHO\",\r\n  \"mensaje\": \"El cliente '{{body 'identificacion'}}' no existe en Zoho CRM.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": false,\r\n  \"code\": \"CLIENTE_NO_ENCONTRADO_ZOHO\",\r\n  \"message\": \"El cliente '{{body 'identificacion'}}' no existe en Zoho CRM.\",\r\n  \"data\": null,\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 404,
           "label": "404 CLIENTE_NO_ENCONTRADO_ZOHO - identificacion 9999",
@@ -745,7 +763,7 @@
         },
         {
           "uuid": "2535f090-b158-4f9a-9e6f-6e973ac992e6",
-          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"NO_ES_CLIENTE_TORRES\",\r\n  \"mensaje\": \"El cliente '{{body 'identificacion'}}' no es cliente TORRES.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": false,\r\n  \"code\": \"NO_ES_CLIENTE_TORRES\",\r\n  \"message\": \"El cliente '{{body 'identificacion'}}' no es cliente TORRES.\",\r\n  \"data\": null,\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 422,
           "label": "422 NO_ES_CLIENTE_TORRES - identificacion 8888",
@@ -777,7 +795,7 @@
         },
         {
           "uuid": "a1ad66c7-2bd0-438f-9172-746852edd896",
-          "body": "{\r\n  \"exito\": false,\r\n  \"codigo\": \"DEPENDENCIA_NO_DISPONIBLE\",\r\n  \"mensaje\": \"SAP no disponible: No fue posible consultar la cartera en SAP.\",\r\n  \"data\": null,\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": false,\r\n  \"code\": \"DEPENDENCIA_NO_DISPONIBLE\",\r\n  \"message\": \"SAP no disponible: No fue posible consultar la cartera en SAP.\",\r\n  \"data\": null,\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 502,
           "label": "502 DEPENDENCIA_NO_DISPONIBLE - identificacion 5020",
@@ -809,7 +827,7 @@
         },
         {
           "uuid": "64535de9-0a13-4d77-bbe0-3471bf24386a",
-          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"CALCULADO\",\r\n  \"mensaje\": \"Cupo calculado correctamente.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"origen\": \"Calculado\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": true,\r\n  \"code\": \"CALCULADO\",\r\n  \"message\": \"Cupo calculado correctamente.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"origen\": \"Calculado\"\r\n  },\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "200 CALCULADO bloqueado - identificacion 1002",
@@ -841,7 +859,7 @@
         },
         {
           "uuid": "73098b51-7bdf-4e4f-abb9-d785a8d142a5",
-          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"MANUAL_CRM\",\r\n  \"mensaje\": \"Gestión manual vigente registrada en CRM.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n    \"motivoBloqueo\": \"Manual\",\r\n    \"fechaBloqueo\": \"{{dateTimeShift days=2 format='yyyy-MM-dd'}}\",\r\n    \"origen\": \"ManualCrm\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": true,\r\n  \"code\": \"MANUAL_CRM\",\r\n  \"message\": \"Gestión manual vigente registrada en CRM.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n    \"motivoBloqueo\": \"Manual\",\r\n    \"fechaBloqueo\": \"{{dateTimeShift days=2 format='yyyy-MM-dd'}}\",\r\n    \"origen\": \"ManualCrm\"\r\n  },\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "200 MANUAL_CRM - identificacion 1003",
@@ -873,7 +891,7 @@
         },
         {
           "uuid": "f1949a35-4ce4-450a-a611-be129fb4361e",
-          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"CONTINGENCIA\",\r\n  \"mensaje\": \"Datos de respaldo: un servicio externo no está disponible y se devuelve el último cálculo guardado.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"origen\": \"Contingencia\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": true,\r\n  \"code\": \"CONTINGENCIA\",\r\n  \"message\": \"Datos de respaldo: un servicio externo no está disponible y se devuelve el último cálculo guardado.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"origen\": \"Contingencia\"\r\n  },\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "200 CONTINGENCIA - identificacion 1005",
@@ -905,7 +923,7 @@
         },
         {
           "uuid": "c0d317af-7252-4498-8d52-e2826176e3f5",
-          "body": "{\r\n  \"exito\": true,\r\n  \"codigo\": \"CALCULADO\",\r\n  \"mensaje\": \"Cupo calculado correctamente.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"origen\": \"Calculado\"\r\n  },\r\n  \"errores\": [],\r\n  \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n  \"fecha\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n}",
+          "body": "{\r\n  \"success\": true,\r\n  \"code\": \"CALCULADO\",\r\n  \"message\": \"Cupo calculado correctamente.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"estadoCarteraTorres\": \"1-Bloqueado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"origen\": \"Calculado\"\r\n  },\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "200 CALCULADO habilitado - cualquier otra identificacion",

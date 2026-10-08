@@ -22,7 +22,48 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"identificacion\": \"0990335028001\",\r\n  \"calificacionTorres\": \"4-ALTO VALOR\",\r\n  \"estadoCartera\": \"Cartera al día\",\r\n  \"configuracion\": {\r\n    \"umbralesVencimiento\": {\r\n      \"1-MUY ALTO VALOR\": 15,\r\n      \"4-ALTO VALOR\": 15,\r\n      \"2-MEDIANO VALOR\": 7,\r\n      \"3-BAJO VALOR\": 7\r\n    },\r\n    \"porcentajeCupo\": {\r\n      \"Cartera al día\": 20,\r\n      \"Cartera vencida\": 0\r\n    }\r\n  }\r\n}",
+          "raw": "{\r\n  \"identificacion\": \"0990335028001\",\r\n  \"calificacionTorres\": \"4-ALTO VALOR\",\r\n  \"cupoTorres\": 12000.00,\r\n  \"configuracion\": {\r\n    \"umbralesVencimiento\": {\r\n      \"1-MUY ALTO VALOR\": 15,\r\n      \"4-ALTO VALOR\": 20,\r\n      \"2-MEDIANO VALOR\": 7,\r\n      \"3-BAJO VALOR\": 7\r\n    },\r\n    \"porcentajeCupo\": {\r\n      \"Cartera al día\": 20,\r\n      \"Cartera vencida\": 0\r\n    }\r\n  }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://mock-cupo-cartera.onrender.com/api/v1/cupocartera/consultar",
+          "protocol": "https",
+          "host": [
+            "mock-cupo-cartera",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "cupocartera",
+            "consultar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "mock-cupo-cartera-200-habilitado",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token_simulado}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"identificacion\": \"1001\",\r\n  \"calificacionTorres\": \"4-ALTO VALOR\",\r\n  \"cupoTorres\": 12000.00,\r\n  \"configuracion\": {\r\n    \"umbralesVencimiento\": {\r\n      \"1-MUY ALTO VALOR\": 15,\r\n      \"4-ALTO VALOR\": 20,\r\n      \"2-MEDIANO VALOR\": 7,\r\n      \"3-BAJO VALOR\": 7\r\n    },\r\n    \"porcentajeCupo\": {\r\n      \"Cartera al día\": 20,\r\n      \"Cartera vencida\": 0\r\n    }\r\n  }\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -63,7 +104,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\"identificacion\":\"0999999999001\",\"calificacionTorres\":\"4-ALTO VALOR\",\"estadoCartera\":\"Cartera al día\"}",
+          "raw": "{\r\n  \"identificacion\": \"0990335028001\",\r\n  \"calificacionTorres\": \"4-ALTO VALOR\",\r\n  \"cupoTorres\": 12000.00,\r\n  \"configuracion\": {\r\n    \"umbralesVencimiento\": {\r\n      \"1-MUY ALTO VALOR\": 15,\r\n      \"4-ALTO VALOR\": 20,\r\n      \"2-MEDIANO VALOR\": 7,\r\n      \"3-BAJO VALOR\": 7\r\n    },\r\n    \"porcentajeCupo\": {\r\n      \"Cartera al día\": 20,\r\n      \"Cartera vencida\": 0\r\n    }\r\n  }\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -104,7 +145,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"identificacion\": \"0990335028001\",\r\n  \"calificacionTorres\": \"4-ALTO VALOR\",\r\n  \"estadoCartera\": \"Cartera al día\",\r\n  \"configuracion\": {\r\n    \"umbralesVencimiento\": {\r\n      \"1-MUY ALTO VALOR\": 15,\r\n      \"4-ALTO VALOR\": 15,\r\n      \"2-MEDIANO VALOR\": 7,\r\n      \"3-BAJO VALOR\": 7\r\n    },\r\n    \"porcentajeCupo\": {\r\n      \"Cartera al día\": 20,\r\n      \"Cartera vencida\": 0\r\n    }\r\n  }\r\n}",
+          "raw": "{\r\n  \"identificacion\": \"9999\",\r\n  \"calificacionTorres\": \"4-ALTO VALOR\",\r\n  \"cupoTorres\": 12000.00,\r\n  \"configuracion\": {\r\n    \"umbralesVencimiento\": {\r\n      \"1-MUY ALTO VALOR\": 15,\r\n      \"4-ALTO VALOR\": 20,\r\n      \"2-MEDIANO VALOR\": 7,\r\n      \"3-BAJO VALOR\": 7\r\n    },\r\n    \"porcentajeCupo\": {\r\n      \"Cartera al día\": 20,\r\n      \"Cartera vencida\": 0\r\n    }\r\n  }\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -145,7 +186,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"identificacion\": \"0990335028001\",\r\n  \"motivo\": \"Manual\",\r\n  \"estado\": \"0-Habilitado\",\r\n  \"fechaBloqueo\": \"2026-10-03\"\r\n}",
+          "raw": "{\r\n  \"identificacion\": \"0990335028001\",\r\n  \"motivo\": \"Manual\",\r\n  \"estado\": \"0-Habilitado\",\r\n  \"fechaBloqueo\": \"2026-10-09\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -186,7 +227,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"identificacion\": \"0990335028001\",\r\n  \"motivo\": \"\",\r\n  \"estado\": \"0-Habilitado\",\r\n  \"fechaBloqueo\": \"2026-10-03\"\r\n}",
+          "raw": "{\r\n  \"identificacion\": \"0990335028001\",\r\n  \"motivo\": \"\",\r\n  \"estado\": \"0-Habilitado\",\r\n  \"fechaBloqueo\": \"2026-10-09\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -227,7 +268,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"identificacion\": \"9999\",\r\n  \"motivo\": \"Manual\",\r\n  \"estado\": \"0-Habilitado\",\r\n  \"fechaBloqueo\": \"2026-10-03\"\r\n}",
+          "raw": "{\r\n  \"identificacion\": \"9999\",\r\n  \"motivo\": \"Manual\",\r\n  \"estado\": \"0-Habilitado\",\r\n  \"fechaBloqueo\": \"2026-10-09\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
