@@ -63,7 +63,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"identificacion\": \"1001\",\r\n  \"calificacionTorres\": \"4-ALTO VALOR\",\r\n  \"cupoTorres\": 12000.00,\r\n  \"configuracion\": {\r\n    \"umbralesVencimiento\": {\r\n      \"1-MUY ALTO VALOR\": 15,\r\n      \"4-ALTO VALOR\": 20,\r\n      \"2-MEDIANO VALOR\": 7,\r\n      \"3-BAJO VALOR\": 7\r\n    },\r\n    \"porcentajeCupo\": {\r\n      \"Cartera al día\": 20,\r\n      \"Cartera vencida\": 0\r\n    }\r\n  }\r\n}",
+          "raw": "{\r\n  \"identificacion\": \"1792967058001\",\r\n  \"calificacionTorres\": \"4-ALTO VALOR\",\r\n  \"cupoTorres\": 12000.00,\r\n  \"configuracion\": {\r\n    \"umbralesVencimiento\": {\r\n      \"1-MUY ALTO VALOR\": 15,\r\n      \"4-ALTO VALOR\": 20,\r\n      \"2-MEDIANO VALOR\": 7,\r\n      \"3-BAJO VALOR\": 7\r\n    },\r\n    \"porcentajeCupo\": {\r\n      \"Cartera al día\": 20,\r\n      \"Cartera vencida\": 0\r\n    }\r\n  }\r\n}",
           "options": {
             "raw": {
               "language": "json"

@@ -66,7 +66,7 @@ Request:
 | Token distinto de `token_api_cupo_cartera` | 403 | `ACCESO_DENEGADO` |
 | Falta `identificacion`, `calificacionTorres` o `configuracion` | 400 | `SOLICITUD_INVALIDA` |
 | `identificacion` = `9999` | 404 | `NO_ENCONTRADO` |
-| `identificacion` = `1001` | 200 | `CALCULADO` (`estadoCarteraTorres` `0-Habilitado`) |
+| `identificacion` = `1792967058001` | 200 | `CALCULADO` (`estadoCarteraTorres` `0-Habilitado`) |
 | `identificacion` = `1002` | 200 | `CALCULADO` (bloqueado, cartera vencida) |
 | `identificacion` = `1003` | 200 | `CACHE_VIGENTE` (bloqueo manual) |
 | Cualquier otra | 200 | `CALCULADO` (cartera al día) |

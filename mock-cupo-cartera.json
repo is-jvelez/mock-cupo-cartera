@@ -11,7 +11,7 @@
     {
       "uuid": "aead6065-02f0-4a69-8f28-cec2dcf794d8",
       "type": "http",
-      "documentation": "E1 (Zoho). Authorization: Bearer token_api_cupo_cartera. identificacion 1001 = habilitado, 1002 = bloqueado, 1003 = caché vigente con Manual, 9999 = 404; cualquier otra = habilitado.",
+      "documentation": "E1 (Zoho). Authorization: Bearer token_api_cupo_cartera. identificacion 1792967058001 = habilitado, 1002 = bloqueado, 1003 = caché vigente con Manual, 9999 = 404; cualquier otra = habilitado.",
       "method": "post",
       "endpoint": "cupocartera/consultar",
       "responses": [
@@ -244,10 +244,10 @@
         },
         {
           "uuid": "ec5dd16b-e7bd-4815-b35b-fb516ff3ad3c",
-          "body": "{\r\n  \"success\": true,\r\n  \"code\": \"CALCULADO\",\r\n  \"message\": \"Cupo calculado correctamente.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"calificacionTorres\": \"{{body 'calificacionTorres'}}\",\r\n    \"estadoCartera\": \"Cartera al día\",\r\n    \"cupoAsignado\": 50000,\r\n    \"porcentajeCupo\": 20,\r\n    \"cupoPermitido\": 60000,\r\n    \"saldoFacturasAbiertas\": 25000,\r\n    \"saldoVencido\": 5000,\r\n    \"saldoPorVencer\": 20000,\r\n    \"numeroFacturasVencidas\": 3,\r\n    \"montoPorFacturar\": 1000,\r\n    \"saldoUtilizado\": 26000,\r\n    \"cupoDisponible\": 34000,\r\n    \"fechaVencimientoMasAntiguaConSaldo\": \"{{dateTimeShift days=-6 format='yyyy-MM-dd'}}T00:00:00\",\r\n    \"diasVencimiento\": 6,\r\n    \"umbralDiasVencimiento\": 15,\r\n    \"cupoExcedido\": false,\r\n    \"carteraVencida\": false,\r\n    \"estadoCarteraTorres\": \"0-Habilitado\",\r\n    \"motivoBloqueo\": null,\r\n    \"fechaBloqueo\": null,\r\n    \"fechaCalculo\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\",\r\n    \"origen\": \"Calculado\"\r\n  },\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
+          "body": "{\r\n  \"success\": true,\r\n  \"code\": \"CALCULADO\",\r\n  \"message\": \"Cupo calculado correctamente.\",\r\n  \"data\": {\r\n    \"identificacion\": \"{{body 'identificacion'}}\",\r\n    \"calificacionTorres\": \"{{body 'calificacionTorres'}}\",\r\n    \"estadoCartera\": \"Cartera al día\",\r\n    \"cupoAsignado\": 50000,\r\n    \"porcentajeCupo\": 20,\r\n    \"cupoPermitido\": 60000,\r\n    \"saldoFacturasAbiertas\": 25000,\r\n    \"saldoVencido\": 5000,\r\n    \"saldoPorVencer\": 20000,\r\n    \"numeroFacturasVencidas\": 3,\r\n    \"montoPorFacturar\": 1000,\r\n    \"saldoUtilizado\": 26000,\r\n    \"cupoDisponible\": 34000,\r\n    \"fechaVencimientoMasAntiguaConSaldo\": \"{{dateTimeShift days=-6 format='yyyy-MM-dd'}}T00:00:00\",\r\n    \"diasVencimiento\": 6,\r\n    \"umbralDiasVencimiento\": 15,\r\n    \"cupoExcedido\": false,\r\n    \"carteraVencida\": false,\r\n    \"estadoCarteraTorres\": \"0-Habilitado\",\r\n    \"motivoBloqueo\": \"Automatico\",\r\n    \"fechaBloqueo\": null,\r\n    \"fechaCalculo\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\",\r\n    \"origen\": \"Calculado\"\r\n  },\r\n  \"errors\": [],\r\n  \"meta\": {\r\n    \"correlationId\": \"{{faker 'string.uuid'}}\",\r\n    \"timestamp\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSSxxx\"}}\"\r\n  }\r\n}",
           "latency": 0,
           "statusCode": 200,
-          "label": "200 CALCULADO habilitado - identificacion 1001",
+          "label": "200 CALCULADO habilitado - identificacion 1792967058001",
           "headers": [
             {
               "key": "Content-Type",
@@ -262,7 +262,7 @@
             {
               "target": "body",
               "modifier": "identificacion",
-              "value": "1001",
+              "value": "1792967058001",
               "invert": false,
               "operator": "equals"
             }
